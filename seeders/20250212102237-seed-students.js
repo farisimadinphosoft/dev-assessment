@@ -17,6 +17,18 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        id: v4(),
+        email: 'commonstudent1@gmail.com',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: v4(),
+        email: 'commonstudent2@gmail.com',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
