@@ -3,6 +3,7 @@ import { NotFoundError } from "../errors";
 import Student from "../models/student";
 import Teacher from "../models/teacher";
 import TeacherStudent from "../models/teacher-student";
+import { StudentStatus } from "../types/student-status";
 
 export const registerStudentsService = async (teacherEmail: string, studentEmails: string[]): Promise<void> => {
   if (!teacherEmail || !studentEmails || !Array.isArray(studentEmails)) {
@@ -102,3 +103,40 @@ export const getCommonStudentsService = async (teacherEmails: string[]): Promise
   return commonStudents;
 };
 
+export const suspendStudentService = async (studentEmail: string): Promise<void> => {
+  if (!studentEmail) {
+    throw new Error("Invalid input");
+  }
+
+  const transaction = await sequelize.transaction();
+
+  try {
+    const student = await Student.findOne({
+      where: {
+        email: studentEmail
+      },
+      transaction
+    });
+
+    if (!student) {
+      throw new NotFoundError(`Student with email ${studentEmail} not found.`);
+    }
+
+    if (student.status === StudentStatus.SUSPENDED) {
+      throw new Error("Student was already suspended");
+    }
+
+    await student.update(
+      {
+        status: StudentStatus.SUSPENDED,
+        updatedAt: new Date(),
+      },
+      { transaction }
+    );
+
+    await transaction.commit();
+  } catch (error) {
+    await transaction.rollback();
+    throw error;
+  }
+};
