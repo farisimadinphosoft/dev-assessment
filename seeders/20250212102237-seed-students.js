@@ -8,26 +8,26 @@ module.exports = {
       {
         id: v4(),
         email: 'studentjon@gmail.com',
+        status: 'active',
         createdAt: new Date(),
-        updatedAt: new Date(),
       },
       {
         id: v4(),
         email: 'studenthon@gmail.com',
+        status: 'active',
         createdAt: new Date(),
-        updatedAt: new Date(),
       },
       {
         id: v4(),
         email: 'commonstudent1@gmail.com',
+        status: 'active',
         createdAt: new Date(),
-        updatedAt: new Date(),
       },
       {
         id: v4(),
         email: 'commonstudent2@gmail.com',
+        status: 'active',
         createdAt: new Date(),
-        updatedAt: new Date(),
       },
     ]);
   },
