@@ -1,4 +1,4 @@
-import { Table, Column, ForeignKey, Model, PrimaryKey, Default, CreatedAt } from "sequelize-typescript";
+import { Table, Column, ForeignKey, Model, PrimaryKey, Default, CreatedAt, BelongsTo } from "sequelize-typescript";
 import { DataType } from "sequelize-typescript";
 import Teacher from "./teacher";
 import Student from "./student";
@@ -31,6 +31,9 @@ class TeacherStudent extends Model {
   @CreatedAt
   @Column(DataType.DATE)
   updatedAt?: any;
+
+  @BelongsTo(() => Student)
+  student!: Student;
 }
 
 export default TeacherStudent;

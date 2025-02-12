@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { registerStudentsService } from "../services/register-service";
+import { registerStudentsService } from "../services/teacher-student-service";
 import { HttpStatusCode } from "axios";
 import { RegisterRequestBody } from "../types";
 

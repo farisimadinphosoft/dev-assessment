@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
-import registerRoutes from "../routes/register-route";
 import { initDb } from "../config/db-connection";
 import { HttpStatusCode } from "axios";
 import { NotFoundError } from "../errors";
+import TeacherStudentRoutes from "../routes/teacher-student-routes";
 
 dotenv.config();
 initDb();
@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.use("/api", registerRoutes);
+app.use("/api", TeacherStudentRoutes);
 
 app.use(errorHandler);
 
