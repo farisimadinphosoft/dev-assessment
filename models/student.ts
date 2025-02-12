@@ -1,5 +1,6 @@
-import { Table, Column, Model, DataType } from "sequelize-typescript";
+import { Table, Column, Model, DataType, CreatedAt } from "sequelize-typescript";
 import { v4 } from "uuid";
+import { StudentStatus } from "../types/student-status";
 
 @Table({ tableName: "students", timestamps: true })
 export default class Student extends Model<Student> {
@@ -17,4 +18,15 @@ export default class Student extends Model<Student> {
     validate: { isEmail: true },
   })
   declare email: string;
+
+  @CreatedAt
+  @Column(DataType.DATE)
+  updatedAt?: any;
+
+  @Column({
+    type: DataType.ENUM(StudentStatus.ACTIVE, StudentStatus.SUSPENDED),
+    allowNull: false,
+    defaultValue: StudentStatus.ACTIVE
+  })
+  declare status: string;
 }

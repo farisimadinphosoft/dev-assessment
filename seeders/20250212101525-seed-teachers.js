@@ -9,13 +9,11 @@ module.exports = {
         id: v4(),
         email: 'teacherken@gmail.com',
         createdAt: new Date(),
-        updatedAt: new Date(),
       },
       {
         id: v4(),
         email: 'teacherjane@gmail.com',
         createdAt: new Date(),
-        updatedAt: new Date(),
       },
     ]);
   },
