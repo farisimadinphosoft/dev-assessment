@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { SuspendRequest } from "../types/suspend-request";
 import { HttpStatusCode } from "axios";
 import { suspendStudentService } from "../services/teacher-student-service";
+import { SuspendRequest } from "../types";
 
 export const suspendStudentController = async (
   req: Request<{}, {}, SuspendRequest>,
