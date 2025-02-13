@@ -11,9 +11,16 @@ export const registerStudentsController = async (
   try {
     const { teacher, students } = req.body;
 
-    if (!teacher || !students || !Array.isArray(students)) {
+    if (!teacher) {
       res.status(HttpStatusCode.BadRequest).json({
-        message: "Invalid input. Please provide a teacher email and an array of student emails.",
+        message: "Invalid input. Please provide a teacher email.",
+      });
+      return;
+    }
+
+    if (!students || !Array.isArray(students) || !students.length) {
+      res.status(HttpStatusCode.BadRequest).json({
+        message: "Invalid input. Please provide an array of student emails.",
       });
       return;
     }
