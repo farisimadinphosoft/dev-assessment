@@ -3,7 +3,7 @@ import { NotFoundError } from "../errors";
 import Student from "../models/student";
 import Teacher from "../models/teacher";
 import TeacherStudent from "../models/teacher-student";
-import { StudentStatus } from "../types/student-status";
+import { RetrieveForNotificationsResponse, StudentStatus } from "../types";
 
 export const registerStudentsService = async (teacherEmail: string, studentEmails: string[]): Promise<void> => {
   if (!teacherEmail || !studentEmails || !Array.isArray(studentEmails)) {
@@ -139,4 +139,47 @@ export const suspendStudentService = async (studentEmail: string): Promise<void>
     await transaction.rollback();
     throw error;
   }
+};
+
+export const retrieveForNotificationsService = async (
+  teacherEmail: string,
+  notification: string
+): Promise<RetrieveForNotificationsResponse> => {
+  if (!teacherEmail || !notification) {
+    throw new Error("Invalid input");
+  }
+
+  const teacher = await Teacher.findOne({
+    where: { email: teacherEmail }
+  });
+
+  if (!teacher) {
+    throw new NotFoundError(`Teacher with email ${teacherEmail} not found.`);
+  }
+
+  const emailRegex = /@([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+  const mentionedEmails = Array.from(notification.matchAll(emailRegex)).map(match => match[1]);
+  const registeredStudents = await TeacherStudent.findAll({
+    where: { teacherId: teacher.id },
+    include: [
+      {
+        model: Student,
+        attributes: ['email'],
+        where: { status: StudentStatus.ACTIVE }
+      }
+    ]
+  });
+
+  const registeredEmails = registeredStudents.map((each: TeacherStudent) => each.student.email);
+  const mentionedStudents = await Student.findAll({
+    where: {
+      email: mentionedEmails,
+      status: StudentStatus.ACTIVE
+    }
+  });
+
+  const mentionedActiveEmails = mentionedStudents.map(student => student.email);
+  const recipients = [...new Set([...registeredEmails, ...mentionedActiveEmails])];
+
+  return { recipients } as RetrieveForNotificationsResponse;
 };

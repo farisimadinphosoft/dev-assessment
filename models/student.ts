@@ -1,6 +1,6 @@
 import { Table, Column, Model, DataType, CreatedAt } from "sequelize-typescript";
 import { v4 } from "uuid";
-import { StudentStatus } from "../types/student-status";
+import { StudentStatus } from "../types";
 
 @Table({ tableName: "students", timestamps: true })
 export default class Student extends Model<Student> {
