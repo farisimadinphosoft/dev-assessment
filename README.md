@@ -8,7 +8,7 @@ This repository contains the solution for the backend assessment. It includes an
 ### Prerequisites
 Ensure you have the following installed on your local machine:
 
-- **Node.js** (version >= 16.x.x)
+- **Node.js** (version >= 18.x.x)
 - **npm** (Node Package Manager) or **yarn**
 - **MySQL** for the database
 
