@@ -23,7 +23,6 @@ export const getCommonStudentsController = async (req: Request, res: Response): 
     if (error instanceof NotFoundError) {
       res.status(HttpStatusCode.NotFound).send({ message: error.message });
     } else {
-      console.error(error);
       res.status(HttpStatusCode.InternalServerError).send({ message: "Internal server error" });
     }
   }
