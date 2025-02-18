@@ -75,6 +75,23 @@ You can test the API using tools like Postman or cURL. Ensure that the following
   - Request body: `{ "teacherEmail": "teacher@example.com", "studentEmails": ["student1@example.com", "student2@example.com"] }`
   - Success response: HTTP 204
 
+
+## Running Unit Tests
+
+This project includes unit tests written with Jest to ensure functionality and reliability.
+
+To run the unit tests, use the following command:
+
+```bash
+npm run test
+```
+
+or if using `yarn`:
+
+```bash
+yarn test
+```
+
 ## Additional Information
 - This project uses **Sequelize** as the ORM for database interaction and **MySQL** as the database engine.
 - The code follows **TypeScript** for type safety and better development experience.
